@@ -1,6 +1,6 @@
 import NormalA from 'components/A';
 
-const NodeLink = NormalA.extend`
+const NodeDetailLink = NormalA.extend`
   height: 100%;
   color: black;
   display: flex;
@@ -8,4 +8,4 @@ const NodeLink = NormalA.extend`
   width: 100%;
 `;
 
-export default NodeLink;
+export default NodeDetailLink;

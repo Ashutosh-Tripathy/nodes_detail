@@ -14,17 +14,17 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { makeSelectRepos, makeSelectLoading, makeSelectError, makeSelectNodesDetail } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import ReposList from 'components/ReposList';
-import NodesList from 'components/NodesList';
+import NodesDetailList from 'components/NodesDetailList';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
+import { loadRepos, loadNodesDetail } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -38,19 +38,20 @@ export class HomePage2 extends React.PureComponent { // eslint-disable-line reac
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+    this.props.onLoadNodesDetail();
   }
 
   render() {
-    const { loading, error, repos, nodes } = this.props;
+    const { loading, error, repos, nodesDetail } = this.props;
     const reposListProps = {
       loading,
       error,
       repos
     };
-    const nodesListProps = {
+    const nodesDetailListProps = {
       loading,
       error,
-      nodes,
+      nodesDetail,
     };
 
     return (
@@ -91,7 +92,7 @@ export class HomePage2 extends React.PureComponent { // eslint-disable-line reac
               </label>
             </Form>
             <ReposList {...reposListProps} />
-            <NodesList {...nodesListProps} />
+            <NodesDetailList {...nodesDetailListProps} />
           </Section>
         </div>
       </article>
@@ -105,7 +106,7 @@ HomePage2.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  nodes: PropTypes.oneOfType([
+  nodesDetail: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.bool,
   ]),
@@ -125,11 +126,14 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
+    onLoadNodesDetail: () => {
+        dispatch(loadNodesDetail());
+    }
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  nodes: makeSelectRepos(),
+  nodesDetail: makeSelectNodesDetail(),
   repos: makeSelectRepos(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),

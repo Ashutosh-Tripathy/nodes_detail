@@ -17,8 +17,11 @@
 
 import {
   LOAD_REPOS,
+  LOAD_NODES_DETAIL,
   LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
+  LOAD_NODES_DETAIL_SUCCESS,
+  LOAD_REPOS_ERROR, 
+  LOAD_NODES_DETAIL_ERROR,
 } from './constants';
 
 /**
@@ -58,6 +61,48 @@ export function reposLoaded(repos, username) {
 export function repoLoadingError(error) {
   return {
     type: LOAD_REPOS_ERROR,
+    error,
+  };
+}
+
+
+/**
+ * Load the nodes detail, this action starts the request saga
+ *
+ * @return {object} An action object with a type of LOAD_NODES_DETAIL
+ */
+export function loadNodesDetail() {
+  return {
+    type: LOAD_NODES_DETAIL,
+  };
+}
+
+/**
+ * Dispatched when the nodes detail are loaded by the request saga
+ *
+ * @param  {array} nodes detail data
+ * @param  {string} username The current username
+ *
+ * @return {object}      An action object with a type of LOAD_NODES_DETAIL_SUCCESS passing the nodes detail
+ */
+export function nodesDetailLoaded(nodesDetail, username) {
+  return {
+    type: LOAD_NODES_DETAIL_SUCCESS,
+    nodesDetail,
+    username,
+  };
+}
+
+/**
+ * Dispatched when loading the repositories fails
+ *
+ * @param  {object} error The error
+ *
+ * @return {object}       An action object with a type of LOAD_NODES_DETAIL_ERROR passing the error
+ */
+export function nodesDetailLoadingError(error) {
+  return {
+    type: LOAD_NODES_DETAIL_ERROR,
     error,
   };
 }

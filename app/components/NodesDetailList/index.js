@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import NodeListItem from 'containers/NodeListItem';
+import NodeDetailListItem from 'containers/NodeDetailListItem';
 
-function NodesList({ loading, error, nodes }) {
+function NodesDetailList({ loading, error, nodesDetail }) {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -18,17 +17,17 @@ function NodesList({ loading, error, nodes }) {
     return <List component={ErrorComponent} />;
   }
 
-  if (nodes !== false) {
-    return <List items={nodes} component={NodeListItem} />;
+  if (nodesDetail !== false) {
+    return <List items={nodesDetail} component={NodeDetailListItem} />;
   }
 
   return null;
 }
 
-NodesList.propTypes = {
+NodesDetailList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  nodes: PropTypes.any,
+  nodesDetail: PropTypes.any,
 };
 
-export default NodesList;
+export default NodesDetailList;

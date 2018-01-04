@@ -16,6 +16,9 @@ import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
   LOAD_REPOS_ERROR,
+  LOAD_NODES_DETAIL_SUCCESS,
+  LOAD_NODES_DETAIL,
+  LOAD_NODES_DETAIL_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -25,6 +28,7 @@ const initialState = fromJS({
   currentUser: false,
   userData: {
     repositories: false,
+    nodesDetail: false
   },
 });
 
@@ -41,6 +45,19 @@ function appReducer(state = initialState, action) {
         .set('loading', false)
         .set('currentUser', action.username);
     case LOAD_REPOS_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
+    case LOAD_NODES_DETAIL:
+      return state
+        .set('loading', true)
+        .set('error', false)
+        .setIn(['userData', 'nodesDetail'], false);
+    case LOAD_NODES_DETAIL_SUCCESS:
+      return state
+        .setIn(['userData', 'nodesDetail'], action.nodesDetail)
+        .set('loading', false)
+    case LOAD_NODES_DETAIL_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);
