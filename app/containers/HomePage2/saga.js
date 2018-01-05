@@ -46,12 +46,12 @@ import { makeSelectUsername } from 'containers/HomePage/selectors';
 export function* getNodesDetail() {
   // Select username from store
   //const username = yield select(makeSelectUsername());
-  const requestURL = `https://api.github.com/users/mxstbr/repos?type=all&sort=updated`;
+  const requestURL = 'http://localhost:3001/';
 
   try {
     // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(nodesDetailLoaded([{id: 'docker', value: 'docker value'}, {id: 'idcs', value: 'idcs value'}, {id: 'oss', value: 'oss value'}]));
+    const nodesDetail = yield call(request, requestURL);
+    yield put(nodesDetailLoaded(nodesDetail));
   } catch (err) {
     yield put(nodesDetailLoadingError(err));
   }

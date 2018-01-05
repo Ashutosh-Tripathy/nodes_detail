@@ -107,7 +107,7 @@ HomePage2.propTypes = {
     PropTypes.bool,
   ]),
   nodesDetail: PropTypes.oneOfType([
-    PropTypes.array,
+    PropTypes.object,
     PropTypes.bool,
   ]),
   repos: PropTypes.oneOfType([
