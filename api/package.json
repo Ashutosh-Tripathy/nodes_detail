@@ -1,0 +1,19 @@
+{
+    "name": "nodes_detail_api",
+    "version": "1.0.0",
+    "description": "Nodes detail api",
+    "scripts": {
+        "start": "pm2 start --interpreter babel-node server.js --watch"
+    },
+    "main": "index.js",
+    "author": "Ashutosh Tripathy",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-node6": "^11.0.0",
+        "cors": "^2.8.4",
+        "express": "^4.16.2",
+        "pm2": "^2.9.1"
+    }
+}
