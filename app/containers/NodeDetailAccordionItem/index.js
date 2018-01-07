@@ -15,6 +15,7 @@ import AccordionItem from 'components/AccordionItem';
 import NodeDetailLink from './NodeDetailLink';
 import Wrapper from './Wrapper';
 import Collapsible from 'react-collapsible';
+import  Diff from 'react-diff';
 
 export class NodeDetailAccordionItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
     render() {
@@ -23,8 +24,7 @@ export class NodeDetailAccordionItem extends React.PureComponent { // eslint-dis
         // Put together the content of the node
         const content = (
             <Collapsible trigger={this.props.id}>
-                <p key={0}> {items[0]}</p>
-                <p key={1}> {items[1]}</p>
+                <p key={0}> <Diff inputA={items[0]} inputB={items[1]} type="chars" /></p>
             </Collapsible>
             // <Wrapper>
             //     <NodeDetailLink href={item.html_url} target="_blank">
