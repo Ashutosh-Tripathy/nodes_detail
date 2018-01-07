@@ -69,9 +69,9 @@ export class HomePage2 extends React.PureComponent { // eslint-disable-line reac
             {/* <p>
               <FormattedMessage {...messages.startProjectMessage} />
             </p>      */}
-            {/* <p>
+            <p>
               <FormattedMessage {...messages.instructionMessage} />
-            </p> */}
+            </p>
           </CenteredSection>
           <Section>
             <NodesDetailAccordion {...nodesDetailAccordionProps} />

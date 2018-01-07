@@ -40,7 +40,7 @@ injectGlobal`
     border: 1px solid lightGrey;
     border-top: 0;
   
-    p {
+    pre {
       margin-bottom: 10px;
       font-size: 14px;
       line-height: 20px;
@@ -65,7 +65,7 @@ injectGlobal`
   
     &:after {
       font-family: 'FontAwesome';
-      content: '\f107';
+      content: 'ⱽ';
       position: absolute;
       right: 10px;
       top: 10px;

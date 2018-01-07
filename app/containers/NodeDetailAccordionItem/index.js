@@ -24,7 +24,7 @@ export class NodeDetailAccordionItem extends React.PureComponent { // eslint-dis
         // Put together the content of the node
         const content = (
             <Collapsible trigger={this.props.id}>
-                <p key={0}> <Diff inputA={items[0]} inputB={items[1]} type="chars" /></p>
+                <div key={0}> <Diff inputA={items[0]} inputB={items[1]} type="chars" /></div>
             </Collapsible>
             // <Wrapper>
             //     <NodeDetailLink href={item.html_url} target="_blank">
