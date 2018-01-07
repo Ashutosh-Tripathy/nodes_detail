@@ -14,16 +14,17 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { makeSelectRepos, makeSelectLoading, makeSelectError, makeSelectNodesDetail } from 'containers/App/selectors';
 import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
+import NodesDetailList from 'components/NodesDetailList';
+import NodesDetailAccordion from 'components/NodesDetailAccordion';
 import AtPrefix from './AtPrefix';
 import CenteredSection from './CenteredSection';
 import Form from './Form';
 import Input from './Input';
 import Section from './Section';
 import messages from './messages';
-import { loadRepos } from '../App/actions';
+import { loadRepos, loadNodesDetail } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
@@ -37,16 +38,23 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+    this.props.onLoadNodesDetail();
   }
 
   render() {
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
+    const { loading, error, repos, nodesDetail } = this.props;
+    const nodesDetailListProps = {
       loading,
       error,
-      repos,
+      nodesDetail,
     };
 
+
+    const nodesDetailAccordionProps = {
+      loading,
+      error,
+      nodesDetail,
+    };
     return (
       <article>
         <Helmet>
@@ -58,30 +66,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <H2>
               <FormattedMessage {...messages.startProjectHeader} />
             </H2>
-            <p>
+            {/* <p>
               <FormattedMessage {...messages.startProjectMessage} />
+            </p>      */}
+            <p>
+              <FormattedMessage {...messages.instructionMessage} />
             </p>
           </CenteredSection>
           <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
-            <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </Form>
-            <ReposList {...reposListProps} />
+            <NodesDetailAccordion {...nodesDetailAccordionProps} />
           </Section>
         </div>
       </article>
@@ -92,6 +85,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  nodesDetail: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
   ]),
@@ -111,10 +108,14 @@ export function mapDispatchToProps(dispatch) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadRepos());
     },
+    onLoadNodesDetail: () => {
+        dispatch(loadNodesDetail());
+    }
   };
 }
 
 const mapStateToProps = createStructuredSelector({
+  nodesDetail: makeSelectNodesDetail(),
   repos: makeSelectRepos(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
