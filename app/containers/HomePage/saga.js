@@ -46,8 +46,8 @@ import { makeSelectUsername } from 'containers/HomePage/selectors';
 export function* getNodesDetail() {
   // Select username from store
   //const username = yield select(makeSelectUsername());
-  const requestURL = 'http://localhost:3001/';
-
+  //const requestURL = 'http://localhost:3001/';
+  const requestURL = `http://${location.hostname}:3001/`;
   try {
     // Call our request helper (see 'utils/request')
     const nodesDetail = yield call(request, requestURL);
